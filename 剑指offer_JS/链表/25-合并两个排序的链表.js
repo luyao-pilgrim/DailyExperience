@@ -21,7 +21,7 @@ var mergeTwoLists = function (l1, l2) {
             p.next = l2;
             l2 = l2.next;
         } else {
-            p.next = l1;ß
+            p.next = l1;
             l1 = l1.next;
         }
         p = p.next;
