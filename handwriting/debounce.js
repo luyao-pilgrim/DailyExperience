@@ -14,6 +14,3 @@ const debounce = (func, delay) => {
         }, delay)
     }
 }
-
-
-

@@ -1,6 +1,8 @@
 /**
  * @param {string} s
  * @return {number}
+ * 也是动态规划，一边走一边搞
+ * abcabcaaa
  */
  var lengthOfLongestSubstring = function(s) {
     let res = 0;

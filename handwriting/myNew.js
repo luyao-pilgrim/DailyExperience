@@ -8,8 +8,8 @@
 
 const myNew = (func, ...args) => {
     let obj = Object.create(func.prototype)
-    let res = func.apply(obj,args)
-    return (typeof res === 'object' && res !== null) ? res : obj 
+    let res = func.apply(obj, args)
+    return (typeof res === 'object' && res !== null) ? res : obj
 }
 
 function _new(/* 构造函数 */ constructor, /* 构造函数参数 */ params) {
@@ -23,4 +23,4 @@ function _new(/* 构造函数 */ constructor, /* 构造函数参数 */ params) {
     var result = constructor.apply(context, args);
     // 如果返回结果是对象，就直接返回，否则返回 context 对象
     return (typeof result === 'object' && result != null) ? result : context;
-  }
+}

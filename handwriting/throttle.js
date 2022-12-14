@@ -31,4 +31,3 @@ const throttle2 = function (func, delay) {
 }
 
 
-

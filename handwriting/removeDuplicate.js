@@ -3,7 +3,7 @@ const removeDuplicate1 = (array) => {
     return [...new Set(array)]
 }
 
-//indexof
+//indexOf
 const removeDuplicate2 = (array) => {
     let result = []
 

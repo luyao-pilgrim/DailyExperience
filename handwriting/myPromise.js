@@ -98,3 +98,50 @@ class myPromise2 {
         })
     }
 }
+
+function myAll(promises){
+    // 问题关键：什么时候要执行resolve，什么时候要执行 reject
+    return new Promise((resolve,reject) => {
+        values = []
+        // 迭代数组中的 Promise，将每个 promise 的结果保存到一个数组里
+        promises.forEach(promise => {
+            // 如果不是 Promise 类型要先包装一下
+            // 调用 then 得到结果
+            Promise.resolve(promise).then(res => {
+                values.push(res)
+                // 如果全部成功，状态变为 fulfilled
+                if(values.length === promises.length){
+                    resolve(values)
+                }
+                },err => { // 如果出现了 rejected 状态，则调用 reject() 返回结果
+                reject(err)
+            })
+        })
+    }
+)
+}
+
+// 哪个 promise 状态先确定，就返回它的结果
+function myRace(promises) {
+    return new Promise((resolve, reject) => {
+        promises.forEach(promise => {
+            Promise.resolve(promise).then(res => {
+                resolve(res)
+            }, err => {
+                reject(err)
+            })
+        })
+    })
+}
+
+Promise.prototype.finally = function (cb) {
+    return this.then(function (value) {
+      return Promise.resolve(cb()).then(function () {
+        return value
+      })
+    }, function (err) {
+      return Promise.resolve(cb()).then(function () {
+        throw err
+      })
+    })
+  }

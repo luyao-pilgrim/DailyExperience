@@ -10,22 +10,12 @@
  * @return {boolean}
  */
  var isSymmetric = function(root) {
-    if(!root) return true;
-    // const check = (node1, node2) => {
-    //     if(!node1 && !node2) return true;
-    //     if(!node1 || !node2) return false;
-    //     return {
-    //         node1.val === node2.val &&
-    //         check(node1.left, node2.right) &&
-    //         check(node1.right, node2.left)
-    //     };
-    // }
-
-    // return check(root.left, root.right);
-    return {
-
-        root.left === root.right &&
-        isSymmetric(root.left) && 
-        isSymmetric(root.right)
+    const dfs = (l, r) => {
+        if(!l && !r) return true
+        if(!l || !r || l.val !== r.val) return false
+        return dfs(l.left, r.right) && dfs(l.right, r.left)
     }
+
+    if(!root) return true
+    return dfs(root.left, root.right)
 };

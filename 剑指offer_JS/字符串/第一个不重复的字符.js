@@ -1,6 +1,7 @@
 /**
  * @param {string} s
  * @return {character}
+ * 思路：每个字符的数量统计，再去找第一个不为1的
  */
 var firstUniqChar = function(s) {
     let cacheMap = {}

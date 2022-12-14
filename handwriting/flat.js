@@ -10,12 +10,15 @@ const flat2 = (array) => {
     },[]) //[]是指定初值
 }
 
+const flat3 = (arr) => {
+    let res = []
+    arr.foreach((it) => {
+        if(Array.isArray(it)) {
+            res = res.concat(flat3(it))
+        } else {
+            res.push(it)
+        }
+    })
 
-let arr2 = [
-    1,
-    [ 2, 3, 4 ],
-    [ 5, [ 6, [ 7, [ 8 ] ] ] ]
-  ]
-  
-  console.log(flat1(arr2))
-  console.log(flat2(arr2))
+    return res
+}

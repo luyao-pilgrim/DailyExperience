@@ -4,11 +4,14 @@
 <meta charset="utf-8"> 
 <title>菜鸟教程(runoob.com)</title> 
 <style>
-* {
+/* * {
     box-sizing: border-box;
 }
 body {
     margin: 0;
+}
+.clearfix {
+    overflow: hidden;
 }
 .header {
     background-color: #2196F3;
@@ -50,11 +53,11 @@ body {
     float: left;
     padding: 15px;
 }
-/* .clearfix::after {
+.clearfix::after {
     content: "";
     clear: both;
     display: table;
-} */
+}
 .sidemenu {
     width: 25%;
 }
@@ -81,7 +84,81 @@ body {
 .sidemenu li a.active {
     background-color: #008CBA;
     color: white;
+} */
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
+.topmenu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    background-color: aqua;
+}
+
+
+.topmenu li a {
+    color: black;
+    display: inline-block;
+    text-decoration: none;
+    padding: 16px;
+    /* text-align: center; */
+}
+
+.topmenu li a:hover {
+    color: white;
+    background-color: orangered;
+}
+
+.clearfix {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    
+}
+
+.sidemenu {
+    width: 25%;
+}
+
+.sidemenu ul {
+    padding: 0;
+    list-style: none;
+}
+
+.sidemenu ul li {
+    background-color: gray;
+    /* text-align: center; */
+}
+.sidemenu ul li a {
+    text-decoration: none;
+    padding: 8px;
+    display: inline-block;
+}
+
+.content {
+    width: 75%;
+}
+.column {
+    padding: 15px;
+}
+
+.column ul {
+    list-style: none;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    background-color: blue;
+}
+
+
+
 </style>
 </head>
 <body>
