@@ -36,66 +36,55 @@ class myPromise1 {
     }
 }
 
-class myPromise2 {
+class MyPromise2  {
     constructor(executor) {
-        this.status = 'pending';
-        this.value = null;
-        this.reason = null;
-        this.onFulfilledCallbacks = [];
-        this.onRejectedCallbacks = [];
+        this.status = 'pending'
+        this.promiseValue = null
+        this.promiseReason = null
+        // 当resolve在setTimeout里面执行，存储到数组里面
+        this.onResolveCallback = []
+        this.onRejectedCallback = []
+
 
         let resolve = (value) => {
-            if (this.status = 'pending') {
-                this.status = 'fulfilled';
-                this.value = value;
-                this.onFulfilledCallbacks.forEach(fn => fn());
+            if(this.status === 'pending') {
+                this.status = 'fulfilled'
+                this.promiseValue = value
+                this.onResolveCallback.forEach(fn => fn())
             }
-        };
+        }
 
         let reject = (reason) => {
-            if (this.status = 'pending') {
-                this.status = 'rejected';
-                this.reason = reason;
-                this.onRejectedCallbacks.forEach(fn => fn());
+            if(this.status === 'pending') {
+                this.status = 'rejected'
+                this.promiseReason = reason
+                this.onRejectedCallback.forEach(fn => fn())
             }
-        };
-
+        }
         try {
-            executor(resolve, reject);
-        } catch (err) {
-            reject(err);
+            executor(resolve, reject)
+        } catch (error) {
+            reject(error)
         }
     }
 
-    then(onFulfilled, onRejected) {
-        return new myPromise2((resolve, reject) => {
-            if (this.status === 'fulfilled') {
-                setTimeout(() => {
-                    const x = onFulfilled(this.value);
-                    x instanceof myPromise2 ? x.then(resolve, reject) : resolve(x)
-                })
-            }
-            if (this.status === 'rejected') {
-                setTimeout(() => {
-                    const x = onRejected(this.reason)
-                    x instanceof myPromise2 ? x.then(resolve, reject) : resolve(x)
-                })
-            }
-            if (this.status === 'pending') {
-                this.onFulfilledCallbacks.push(() => { // 将成功的回调函数放入成功数组
-                    setTimeout(() => {
-                        const x = onFulfilled(this.value)
-                        x instanceof myPromise2 ? x.then(resolve, reject) : resolve(x)
-                    })
-                })
-                this.onRejectedCallbacks.push(() => { // 将失败的回调函数放入失败数组
-                    setTimeout(() => {
-                        const x = onRejected(this.reason)
-                        x instanceof myPromise2 ? x.then(resolve, reject) : resolve(x)
-                    })
-                })
-            }
-        })
+
+    then(onResolve, onReject) {
+        if(this.status = 'fulfilled') {
+            onResolve(this.promiseValue)
+        }
+        if(this.status = 'rejected') {
+            onReject(this.promiseReason)
+        }
+        if(this.status = 'pending') {
+            this.onResolveCallback.push(() => {
+                onResolve(this.value)
+            })
+            this.onRejectedCallback.push(() => {
+                onReject(this.reason)
+            })
+        }
+
     }
 }
 

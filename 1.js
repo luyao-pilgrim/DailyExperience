@@ -29,3 +29,7 @@ function max(array) {
 
 
   console.log(max(["a","a","a","b","b","c","c"]));
+
+  let arr = [2,1,2]
+  arr.length = 1
+  console.log(arr)

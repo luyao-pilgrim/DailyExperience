@@ -43,11 +43,6 @@ fn.myCall({ name: '前端胖头鱼', sex: 'boy' }, '前端胖头鱼', 'boy')
 
 
 Function.prototype.mCall = function (obj, ...args) {
-  if (typeof obj === 'object') {
-    obj = obj || window
-  } else {
-    obj = Object.create(null)
-  }
   let fn = Symbol()
   obj[fn] = this
   let res = obj[fn](...args)

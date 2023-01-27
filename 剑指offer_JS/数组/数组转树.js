@@ -44,3 +44,38 @@ const data = [
     }
 }
 
+// 递归方法
+ const array2tree1 = (root, result, pid) => {
+  for(let i = 0; i < root.length; i++) {
+    if(root[i].pid === pid) {
+      let item = {...root[i], children:[]}
+      result.push(item)
+      array2tree(root, item.children, item.id)
+    }
+  }
+
+  return result
+ }
+
+ //map方法
+ const array2tree2 = (root) => {
+  let result = []
+  let map = new Map()
+  data.forEach((item) => {
+    map[item.id] = item
+  })
+
+  data.forEach((item) => {
+    let parent = map[item.pid]
+    if(parent) {
+      (parent.children || (parent.children = [])).push(item)
+    } else {
+      result.push(item)
+    }
+  })
+
+  return result
+ }
+
+ console.log(array2tree2(data))
+

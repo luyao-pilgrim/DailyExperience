@@ -22,7 +22,7 @@
     
     function backtracking(n, k, used) {
         if(path.length === k) {
-            res.push(Array.from(path));
+            res.push([...path]);
             return;
         }
         for (let i = 0; i < k; i++ ) {
@@ -35,6 +35,10 @@
         }
     }
 };
+
+//看我！
+//数组排列重点：path装路径,used装这个地方是否被使用
+// backtracking用到的参数：原生数组，需要的长度，used数组
 
 const s = (arr) => {
     let res = [], path = []
@@ -50,6 +54,28 @@ const s = (arr) => {
         for(let i = 0; i < l; i++) {
             if(used[i]) continue
             path.push(n[i])
+            used[i] = true
+            backtracking(n, l, used)
+            path.pop()
+            used[i] = false
+        }
+    }
+}
+
+const fang = (arr) => {
+    let res = [], path = []
+    backtracking(arr, arr.length, [])
+    return res
+
+    function backtracking(n,l,used) {
+        if(path.length === l) {
+            res.push([...path])
+            return
+        }
+
+        for(let i = 0; i < l; i++) {
+            if(used[i]) continue
+            path.push(arr[i])
             used[i] = true
             backtracking(n, l, used)
             path.pop()

@@ -8,16 +8,13 @@ function Child(name, parentName) {
     Parent.call(this, parentName);  
     this.name = name;    
 }
-function create(proto) {
-    function F(){}
-    F.prototype = proto;
-    return new F();
-}
-Child.prototype = create(Parent.prototype);
+Child.prototype = Object.create(Parent.prototype);
+Child.prototype.constructor = Child;
+
 Child.prototype.sayName = function() {
     console.log('child name:', this.name);
 }
-Child.prototype.constructor = Child;
+
 
 var parent = new Parent('father');
 parent.sayName();    // parent name: father

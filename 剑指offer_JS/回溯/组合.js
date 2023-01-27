@@ -18,3 +18,65 @@ const combine = (n,k) => {
         }
     }
 }
+
+// console.log(combine(4,2))
+
+const fang = (n, l) => {
+    let res = [], path = []
+    backtracking(1, path)
+    return res
+
+    function backtracking(start, path) {
+        if(path.length === l) {
+            res.push([...path])
+            return
+        }
+
+        for(let i = start; i <= n; i++) {
+            path.push(i)
+            backtracking(i+1, path)
+            path.pop()
+        }
+    }
+}
+
+const youlaile = (n, l) => {
+    let res = [], path = []
+    backtricking(path, 1)
+    return res
+    function backtricking(path, start){
+        if(path.length === l) {
+            res.push([...path])
+            return
+        }
+        for(let i = start; i <= n; i++) {
+            path.push(i)
+            backtricking(path, i+1)
+            path.pop()
+        }
+    }
+}
+
+
+
+
+const bei = (n, k) => {
+    let res = [], path = []
+    backtricking(n, k, 1)
+    function backtricking(n, k, index) {
+        if(path.length === k) {
+            res.push([...path])
+            return
+        }
+
+        for(let i = index; i <= n; i++) {
+            path.push(i)
+            backtricking(n, k, i+1)
+            path.pop()
+        }
+    }
+
+    return res
+}
+
+console.log(bei(4,2))
