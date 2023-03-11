@@ -60,6 +60,28 @@ state改变是re-render的唯一因素
 
 ## React设计模式
 
+## 生命周期以及对应的effect钩子
+
+创建->初始化数据->编译模板->挂载DOM->渲染，更新->卸载
+
+![](C:\Users\陆遥\Desktop\DailyExperience\笔记\images\2023-02-07-09-58-50-image.png)
+
+1.创建阶段：
+
+**constructor**:数据初始化
+
+**getDerivedStateFromProps**:观察state是否去受到props的影响
+
+在每次`render`方法前调用，第一个参数为即将更新的`props`，第二个参数为上一个状态的`state`，可以比较`props` 和 `state`来加一些限制条件，防止无用的state更新
+
+**render**：会插入jsx生成的dom结构，react会生成一份虚拟dom树，在每一次组件更新时，在此react会通过其diff算法比较更新前后的新旧DOM树，比较以后，找到最小的有差异的DOM节点，并重新渲染。
+
+**componentDidMount**:数据获取，DOM事件绑定
+
+2.更新阶段：
+
+3.销毁阶段
+
 ## hooks大全
 
 ![](C:\Users\陆遥\Desktop\DailyExperience\笔记\images\2023-01-17-17-05-33-image.png)
@@ -190,3 +212,7 @@ return的清除作用时机是：
 2.组件销毁时候
 
 **2.useLayoutEffect**
+
+## immutable.js+memo浅比较的更新方案
+
+总结起来就是想在对react组件进行性能优化时，需要监测state或props的变化来判断是否render，而怎么监测变化=>用浅比较，但浅比较存在更新对象属性时引用没变的问题，所以只要能解决这个问题，浅比较依然是好方案，因此immutable的出现解决的就是有变化就返回新引用，故而浅比较+immutable就是性能优化的利器，然后后面出现的Immer是比immutable更好的方案

@@ -10,7 +10,7 @@
  * @param {TreeNode} B
  * @return {boolean}
  */
-// 该递归函数是用来判断A当前节点和B是否相同
+// 该递归函数是用来判断A当前节点和B是否相同 A>=B
 const dfs = (A, B) => {
     // 递归出口
     if (!B) return true;
@@ -25,3 +25,4 @@ const isSubStructure = (A, B) => {
     // 递归判断A当前节点、A左子树、A右子树任意一个与B相同，就返回true
     return dfs(A, B) || isSubStructure(A.left, B) || isSubStructure(A.right, B);
 };
+

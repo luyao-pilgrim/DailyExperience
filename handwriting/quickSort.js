@@ -23,3 +23,6 @@ const _quick = (arr) => {
     quickSort(arr, 0, arr.length-1)
     return arr
 }
+
+console.log(_quick([2,3,1,4,5,7,8,6]))
+

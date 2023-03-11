@@ -46,7 +46,7 @@ const deepClone2 = (obj) => {
                     cloneObj[key] = null
                 } else {
                     map.set(value, true)
-                    cloneObj[key] = copy(value)
+                    cloneObj[key] = deepClone2(value)
                 }
             }
         }
@@ -57,3 +57,4 @@ const deepClone2 = (obj) => {
 
     return cloo(obj)
 }
+

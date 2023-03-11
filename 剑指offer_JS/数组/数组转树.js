@@ -79,3 +79,4 @@ const data = [
 
  console.log(array2tree2(data))
 
+
