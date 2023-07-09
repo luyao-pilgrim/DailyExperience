@@ -216,3 +216,53 @@ return的清除作用时机是：
 ## immutable.js+memo浅比较的更新方案
 
 总结起来就是想在对react组件进行性能优化时，需要监测state或props的变化来判断是否render，而怎么监测变化=>用浅比较，但浅比较存在更新对象属性时引用没变的问题，所以只要能解决这个问题，浅比较依然是好方案，因此immutable的出现解决的就是有变化就返回新引用，故而浅比较+immutable就是性能优化的利器，然后后面出现的Immer是比immutable更好的方案
+
+## 生命周期
+
+创建：  
+constructor,  do:super+初始化state,  
+getDerivedStateFromeProps,  do:传入props和上一次的state可以做一些过滤，格式化操作，当作这次的state
+render,  本质：jsx==>React.createElement+渲染，生成新的DOM
+componentDidMount,  新DOM有了，可以添加副作用操作DOM等
+
+更新：  
+shouldComponentUpdate,  根据前后两次state判断是否更新，走不走render
+componentDidUpdate,  
+
+销毁,  
+ComponentWillUnmount,  
+
+## hooks
+
+useMemo,useCallback:  一切都要从re-render这个精髓说起，函数花开花谢，每一次的基本，数组对象，方法都是全新的，让子组件也有不必要的re-render心智负担
+useRef:  类组件createRef可以直接获取子组件实例，而函数组件不可以，需要forwardRef包装，组件之间跨层级ref操作+DOM操作（Input,Form）+缓存值  
+forwardRef+useImpretivehandle:  函数组件关于ref的丝滑方案
+
+## setState机制
+
+简易版：
+同步：setTimeout中，原生DOM挂载事件中，  
+异步：生命周期中，React合成事件中，  
+批量更新：batchUpdate
+
+## fiber
+
+痛点：JS线程占用，DOM对比diff+JS程序占用时间，导致渲染线程延后不能及时响应  
+改进：1.引入优先级概念，可中断优先级低的  2.引入异步requestldleCallback  3.diff转变，树变成链表
+
+先决概念：协调reconciliation:diff算法, 调度scheduling:优先级任务处理  
+链表树-->每一个vdom是一个fiber节点，通过return,children,sibling链接  
+初始渲染：老老实实children-sibling去构建整个的fiber链表树-->更新：不再新建fiber,对于work-in-Progress树
+
+React16后，fiber其实就是虚拟DOM，保存了虚拟节点React element的信息，以及更新删除的信息，静态数据结构+动态执行工作单元
+
+
+## diff具体，JSX转化真实DOM
+
+
+## react性能优化
+memo组件+lazy,suspense
+## 我在React中遇到的问题
+1.每次都要useEffect请求，每次都要渲染2次？
+尝试一下Suspense异步请求
+## 错误处理
