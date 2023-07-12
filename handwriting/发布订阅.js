@@ -3,24 +3,40 @@
 class EventEmitter {
 
     constructor() {
-        this.eventList = {}
+        this.handleMap = {}
     }
 
-    on(event, fn) {
-        if(!this.eventList[event]) this.eventList[event] = []
-        this.eventList[event].push(event)
-    }
-
-    emit(event, ...args) {
-        if(this.eventList[event]) {
-            this.eventList[event].foreach((func) => {
-                func.apply(this, args)
-            })
+    on(eventName, ...handler){
+        if(!this.handleMap[eventName]) {
+            this.handleMap[eventName] = []
         }
+        this.handleMap[eventName].push(...handler)
     }
 
-    off(event, fn) {
-        let index = this.eventList[event].findIndex(v => v === fn)
-        this.eventList[event].splice(index, 1)
+    off(eventName, handler){
+        if(!eventName) {
+            this.handleMap = {}
+            return
+        }
+
+        if(!this.handleMap[eventName]) {
+            return
+        }
+
+        this.handleMap[eventName].forEach((cur, index) => {
+            if(cur == handler) {
+                this.handleMap[eventName].splice(index,1)
+            }
+        })
+    } 
+
+    emit(eventName, ...args) {
+        if(!this.handleMap[eventName]) {
+            return
+        }
+
+        this.handleMap[eventName].forEach((cur) => {
+            cur.apply(this, args)
+        })
     }
 }
