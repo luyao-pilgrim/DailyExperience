@@ -11,8 +11,23 @@
 
 > 懒加载
 
+lazy-load组件
+
 > 歌词
 
 > service-worker
-简介：基于web-woker技术的（h5新增的），独立于js主线程的woker线程，可以作为所有请求的代理，本质上也还是浏览器缓存，并且可以主动去控制sw的缓存的版本  
-重点：独立线程，网络代理
+
+简介：基于web-woker技术的（h5新增的），独立于js主线程的woker线程，可以作为所有请求的代理，本质上也还是浏览器缓存，配合cachestorage主要用于离线弱网环境下的资源加载，并且可以主动去控制sw的缓存的版本   
+重点：独立线程，网络代理  
+
+问题：  
+1.生命周期  
+install-->installed-->activate-->activated  
+install:静态的资源，确定性的下载  
+installed:通知用户更新，使用postMessage通知skipwaiting  
+activate: 删除旧版本的缓存  
+
+2.sw版本更新的刷新问题  
+监听onupdatefound-->用户确认传递postMessage-->skipwaiting-->controllerchange刷新
+
+web-worker:大量计算场景  
