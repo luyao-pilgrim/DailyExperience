@@ -8,6 +8,18 @@
 - 关键：根据父元素监听scroll事件，scrollTop高度来判断获取当前渲染数组的上下index,上：第一个bottom大于scrollTop的，下：startIndex+渲染条数（screenHeight/预估高度）  
 - 缓冲区：平滑滚动：通过在可视区域上方和下方提前渲染一些元素，缓冲区可以在用户滚动时提供平滑的滚动体验。当用户滚动到边界时，新的元素可以立即显示出来，避免了加载延迟或白屏现象，提升了滚动的流畅性  
 
+等高步骤：  
+1.最外层固定高度（一般为视口高度左右），内container高度为item个数*itemheight，里面v-for或者data.map展示列表  
+2.最外层绑定scroll方法，不断的实时获取scrollTop属性，作为我们的偏移量  
+3.两种方法，一种将scrollTop作为内container的translateY的值，不断的保持在可视区域内；第二种是给内contenr加top值，推荐第一种  
+4.确定data.slice()的startIndex（关键！）和endIndex-->start===Math.floor(scrollTop/itemHeight)简单！
+
+动态高度：
+添加步骤：预估高度（不是真实使用，是为了一开始渲染N个而不是全部渲染），positions数组记录真实的bottom等（渲染后通过dom的getBoundingRect获得），
+
+优化：  
+1.上下缓冲区，防止滚动过快白屏-->白屏原因：GPU线程对于用户响应优先处理，先响应了滚动，对于事件异步处理了，主线程的js等被延后了  
+2.动态高度：二分法查找positions数组中的startIndex
 
 > 懒加载
 
