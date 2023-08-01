@@ -1,27 +1,57 @@
-function findTriplet( arr ,  target ) {
-    let used = new Array(arr.length).fill(false)
-    // write code here
-    for(let i = 0; i < arr.length; i++) {
-        let t1 = arr[i]
-        used[i] = true
-        for(let j = 0; j <arr.length; j++) {
-            if(used[j]) continue
-            let t2 = arr[j]
-            used[j] = true
-            for(let k = 0; k < arr.length; k++) {
-                if(used[k]) continue
-                let t3 = arr[k]
-                if(t1+t2+t3 === target) {
-                    return [t1,t2,t3]
-                }
-            }
-            used[j] = false
+// 多维拍平+去除重复项
+
+
+const flat = (arr) => {
+    let res1 = []
+    arr.reduce((it, index) => {
+        res1.concat(Array.isArray(it) ? flat(it) : it)
+    },[])
+
+    return res1
+}
+
+const quchong = (arr) => {
+    let res2 = []
+    arr.map((item, index) => {
+        if(arr.indexOf(item) === index) {
+            res2.push(item)
         }
-        used[i] = false
-    }
+    })
+
+    return res2
+}
+
+
+const fn = (arr) => {
     
-    return []
+    let a = flat(arr)
+    let b = quchong(a)
+
+    return b
     
 }
 
-console.log(findTriplet([1,2,3,4], 6));
+const array = [1,1,[2,1,[3,4,1]]]
+
+console.log(flat(array));
+
+
+
+
+
+
+
+
+
+
+
+let res = []
+
+const back = (node) => {
+    if(!node) {
+        return
+    }
+    back(node.left)
+    back(node.right)
+    res.push(node.val)
+}
