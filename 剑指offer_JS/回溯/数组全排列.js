@@ -83,3 +83,41 @@ const fang = (arr) => {
         }
     }
 }
+
+
+
+const xhs = (arr) => {
+
+    let res = 0, path = []
+    backtracking(arr, arr.length, [])
+    return res
+
+    function backtracking(o, p, used) {
+        let tmpT = 0
+        let tmpH = 0
+        let tmpHappy = 0
+        for(let j = 0; j < path.length; j++) {
+           tmpT += path[j][0]
+           tmpH += path[j][1]
+          tmpHappy += path[j][2]
+          
+        }
+        if(tmpT > 5 || tmpH > 4) {
+          return
+        }else {
+          res = Math.max(res, tmpHappy)
+        }
+        
+        for(let k = 0; k < p; k++) {
+          if(used[k]) continue;
+          path.push(o[k]);
+          used[k] = true; // 同支
+          backtracking(o, p, used);
+          path.pop();
+          used[k] = false;
+          
+        }
+      }
+}
+
+console.log(xhs([[1,2,2],[2,1,3],[4,1,1],[1,1,1]]))
