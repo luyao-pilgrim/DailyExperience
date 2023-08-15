@@ -1,20 +1,28 @@
 
-const promise1 = new Promise((resolve) => {
-    setTimeout(() => {
-        resolve('success')
-        console.log('timer1')
+
+const resolve = (data) => {
+    let res = []
+    let map = {}
+    for(let i = 0; i< data.length; i++) {
+        map[data[i]] = data[i].parentId
+    }
+
+    data.forEach((item) => {
+        let parent = map[item]
+        if(parent) {
+            if(!res.parent) {
+                res.parent = []
+            } else {
+                res.parent.push(item)
+            }
+        }else {
+            res.push(item)
+        }
     })
-    console.log('p1内容')
-})
+}
 
-const promise2 = promise1.then(() => {
-    throw new Error('error!!!')
-})
-
-console.log('promise1', promise1)
-console.log('promise2', promise2)
-setTimeout(() => {
-    console.log('timer2')
-    console.log('promise1', promise1)
-    console.log('promise2', promise2)
-},2000)
+[
+    {id:0, pid: 0},
+    {id:1, pid:1},
+    {id}
+]
