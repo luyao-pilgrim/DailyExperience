@@ -43,3 +43,4 @@ activate: 删除旧版本的缓存
 监听onupdatefound-->用户确认传递postMessage-->skipwaiting-->controllerchange刷新
 
 web-worker:大量计算场景  
+

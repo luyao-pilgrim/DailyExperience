@@ -39,4 +39,13 @@ class EventEmitter {
             cur.apply(this, args)
         })
     }
+
+    once(eventName, handler){
+        const wrap = () => {
+            handler.apply(this)
+            this.off(eventName, handler)
+        }
+
+        this.on(eventName, wrap)
+    }
 }
