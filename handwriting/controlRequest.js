@@ -96,3 +96,24 @@ function sendRequest(requestList,limits,callback){
     runTaskNeeded()
 
 }
+
+
+
+
+// 第二种async+Promise.race  
+let idArray = [1,2,3,4,5,6,7,8,9]
+let max = 3
+let pool = []
+async function run2() {
+    for(let i = 0; i < idArray.length; i++) {
+        let promise = request(idArray[i])
+        promise.then((resolve, reject) => {
+            pool.splice(pool.indexOf(promise), 1)
+        })
+        pool.push(promise)
+
+        if(pool.length === max) {
+            await Promise.race(pool)
+        }
+    }
+}
